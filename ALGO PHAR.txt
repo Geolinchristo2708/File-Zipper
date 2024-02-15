@@ -1,0 +1,49 @@
+Algorithm
+Step 1: Initialize Classes
+Define Product class with attributes: name, quantity, threshold.
+
+Define methods:
+
+restock(int q): Adds q to quantity.
+needsRestock(): Returns true if quantity < threshold.
+Define Customer class with attributes: name, address, prescription.
+
+Define Prescription class with attributes: drugname, dosage, quantity, refillrequests.
+
+Define methods:
+refill(int q): Increases quantity and decreases refillrequests.
+needsRefill(): Returns true if refillrequests > 0.
+Define Sale class with attributes: productname, quantity, price, paymentmethod.
+
+Define method:
+getTotal(): Returns quantity * price.
+Step 2: Take User Input
+Product Details:
+
+Ask user for product name, quantity, and threshold value.
+Create a Product object.
+Check if restocking is needed using needsRestock().
+Restock product by calling restock(10).
+Customer Details:
+
+Ask user for customer name, address, and prescription.
+Create a Customer object and display details.
+Prescription Details:
+
+Ask user for drug name, dosage, quantity, and refill requests.
+Create a Prescription object.
+Check if a refill is needed using needsRefill().
+Refill the prescription by calling refill(30).
+Sale Details:
+
+Ask user for sale product name, quantity, sale price, and payment method.
+Create a Sale object.
+Display total price using getTotal().
+Step 3: Display Output
+Show results for:
+Product restocking status.
+Customer details.
+Prescription refill status.
+Sale summary (product name, quantity, total price, and payment method).
+Step 4: End Program
+The program completes execution successfully.
