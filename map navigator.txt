@@ -1,0 +1,113 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <limits>
+#include <algorithm>
+
+using namespace std;
+
+// Function to find the node with the smallest distance value
+char minDistance(const unordered_map<char, int>& distance, const vector<char>& unvisited) {
+    int minDist = numeric_limits<int>::max();
+    char minNode = -1;
+
+    for (char node : unvisited) {
+        if (distance.at(node) < minDist) {
+            minDist = distance.at(node);
+            minNode = node;
+        }
+    }
+    return minNode;
+}
+
+// Function to find the shortest path using Dijkstra's Algorithm
+vector<char> shortestPath(const unordered_map<char, vector<pair<char, int>>>& graph, char source, char destination) {
+    vector<char> unvisited; // List of unvisited nodes
+    unordered_map<char, int> distance; // Distance map
+    unordered_map<char, char> previous; // Previous node tracking
+
+    // Initialize distances and unvisited nodes
+    for (const auto& node : graph) {
+        char nodeName = node.first;
+        distance[nodeName] = numeric_limits<int>::max();
+        previous[nodeName] = -1;
+        unvisited.push_back(nodeName);
+    }
+    distance[source] = 0; // Distance to source is 0
+
+    // Dijkstra's algorithm loop
+    while (!unvisited.empty()) {
+        char u = minDistance(distance, unvisited);
+        if (u == -1 || distance[u] == numeric_limits<int>::max()) {
+            break; // No path exists
+        }
+
+        // Remove 'u' from unvisited list
+        unvisited.erase(remove(unvisited.begin(), unvisited.end(), u), unvisited.end());
+
+        // Explore neighbors
+        for (const auto& neighbor : graph.at(u)) {
+            char v = neighbor.first;
+            int weight = neighbor.second;
+            int alt = distance[u] + weight;
+
+            if (alt < distance[v]) {
+                distance[v] = alt;
+                previous[v] = u;
+            }
+        }
+    }
+
+    // Build shortest path
+    vector<char> path;
+    char current = destination;
+    
+    if (previous[current] == -1) {
+        cout << "No path exists from " << source << " to " << destination << "." << endl;
+        return {};
+    }
+
+    while (current != -1) {
+        path.push_back(current);
+        current = previous[current];
+    }
+    
+    reverse(path.begin(), path.end());
+    return path;
+}
+
+int main() {
+    int numEdges;
+    cout << "Enter the number of edges: ";
+    cin >> numEdges;
+
+    unordered_map<char, vector<pair<char, int>>> graph;
+
+    cout << "Enter edges (format: source destination weight):" << endl;
+    for (int i = 0; i < numEdges; ++i) {
+        char source, destination;
+        int weight;
+        cin >> source >> destination >> weight;
+        graph[source].push_back(make_pair(destination, weight));
+        graph[destination].push_back(make_pair(source, weight)); // For undirected graph
+    }
+
+    char sourceNode, destinationNode;
+    cout << "Enter source node: ";
+    cin >> sourceNode;
+    cout << "Enter destination node: ";
+    cin >> destinationNode;
+
+    vector<char> shortest = shortestPath(graph, sourceNode, destinationNode);
+
+    if (!shortest.empty()) {
+        cout << "Shortest path from " << sourceNode << " to " << destinationNode << ": ";
+        for (char node : shortest) {
+            cout << node << " ";
+            if (node != destinationNode) cout << "-> ";
+        }
+        cout << "\nDistance: " << shortest.size() - 1 << " units" << endl;
+    }
+
+    return 0;
+}
