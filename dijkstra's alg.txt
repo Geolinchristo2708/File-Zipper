@@ -1,0 +1,36 @@
+ Dijkstra's algorithm is a graph traversal and shortest path 
+finding algorithm used in computer science and network 
+routing. Here's how it plays a role in a DSA (Data 
+Structures and Algorithms) map navigator project in about 
+four key points:
+SHORTEST PATH
+CALCULATION:
+Dijkstra's algorithm is employed
+to find the shortest path between
+two locations on a map. It
+calculates the minimum distance
+from a starting point to all other
+points in the graph, effectively
+creating a map of the shortest
+paths.
+WEIGHTED GRAPH
+REPRESENTATION:
+ In the map navigator project,
+locations are represented as nodes,
+and the connections between them
+(roads, for example) are
+represented as edges with
+associated weights (usually distance
+or travel time). Dijkstra's algorithm
+works on weighted graphs, making it
+suitable for finding the optimal
+routes.
+REAL-TIME NAVIGATION:
+Dijkstra's algorithm can be used to
+provide real-time navigation
+guidance. As a user inputs their
+current location and destination, the
+algorithm computes the shortest
+path, considering the current state
+of the road network, and provides
+turn-by-turn directions.
