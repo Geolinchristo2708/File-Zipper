@@ -1,0 +1,22 @@
+Books:
+ID  Name, Author_ID, Publisher_ID
+Here, ID is the super key, so it is in BCNF form.
+Author:
+ID  Name,
+Here, ID is the super key, so it is in BCNF form.
+Publisher:
+ID  Name, City,
+Here, ID is the super key, so it is in BCNF form.
+Branch:
+ ID  Branch_ID, Salary, Name, , Phone, City, Street
+Here, ID is the super key, so it is in BCNF form.
+Branch:
+ID  City, Street
+Here, ID is the super key, so it is in BCNF form.
+Customer:
+ID  Name, , Phone, City,
+Here, ID is the super key, so it is in BCNF form.
+Issue:
+Customer_ID, Book_ID  Branch_ID, Employee_ID, Issue_Date, Issue_Date,
+ Return_Date
+Here, (Customer_ID, Book_ID) make the super key, so it is in BCNF form.
