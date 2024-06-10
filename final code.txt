@@ -1,0 +1,301 @@
+user:
+-- Drop table if it exists
+DROP TABLE IF EXISTS `user`;
+
+-- Create user table
+CREATE TABLE `user` (
+    RollNo VARCHAR(20) PRIMARY KEY,
+    Name VARCHAR(255) NOT NULL,
+    Type ENUM('Student', 'Faculty', 'Admin') NOT NULL,
+    Category ENUM('GEN', 'OBC', 'SC', 'ST') NULL,
+    Email VARCHAR(255) UNIQUE NOT NULL,
+    Phone VARCHAR(15) NOT NULL,
+    Password VARCHAR(255) NOT NULL
+);
+
+-- Insert data into user table
+LOCK TABLES `user` WRITE;
+INSERT INTO `user` (RollNo, Name, Type, Category, Email, Phone, Password) VALUES
+('ADMIN', 'admin', 'Admin', NULL, 'admin@gmail.com', '123456789', 'admin'),
+('b160001cs', 'John', 'Student', 'GEN', 'john@gmail.com', '9876543210', 'b160001cs'),
+('b160002cs', 'Adam', 'Student', 'ST', 'adam@yahoo.com', '7845965212', 'b160002cs'),
+('b160003ch', 'Alice', 'Student', 'OBC', 'alice@hotmail.com', '4512451245', 'b160003ch'),
+('b160004me', 'Abbot', 'Student', 'GEN', 'abbot@gmail.com', '6352416352', 'b160004me'),
+('b160005ce', 'Bale', 'Student', 'SC', 'bale@gmail.com', '9668574748', 'b160005ce'),  -- Fixed phone length
+('b160006cs', 'Bob', 'Student', 'GEN', 'bob@gmail.com', '4141415263', 'b160006cs'),
+('b160007cs', 'Goku', 'Student', 'GEN', 'goku@yahoo.com', '4545451212', 'b160007cs'),
+('b160008cs', 'Ben', 'Student', 'GEN', 'ben10@hotmail.com', '6352416345', 'b160008cs'),
+('b160009cs', 'Ash', 'Student', 'GEN', 'ash@yahoo.com', '7845124578', 'b160009cs'),
+('b160010cs', 'Harry', 'Student', 'GEN', 'harry@hotmail.com', '4578457845', 'b160010cs'),
+('b160011ch', 'Gwen', 'Student', 'GEN', 'gwen@yahoo.com', '9685747474', 'b160011ch'),
+('b160012me', 'Kevin', 'Student', 'ST', 'kevin11@hotmail.com', '1242425163', 'b160012me'),
+('b160013ee', 'Max', 'Student', 'OBC', 'max@gmail.com', '9685748574', 'b160013ee'),
+('B160111Cs', 'Bharat', 'Student', 'GEN', 'bharat@gmail.com', '1234567890', 'abcd'),  -- Fixed phone length
+('B160158CS', 'Manu', 'Student', 'GEN', 'manu@gmail.com', '8365917597', 'manu'),
+('b160257me', 'Eve', 'Student', 'GEN', 'eve@gmail.com', '5451525356', 'b160257me'),
+('b160321ec', 'Joey', 'Student', 'SC', 'joey@yahoo.com', '9898982020', 'b160321ec'),
+('b160412cs', 'Barney', 'Student', 'ST', 'legendary@gmail.com', '9695989192', 'b160412cs'),
+('b160423cs', 'Rachel', 'Student', 'GEN', 'rachel@gmail.com', '7475787671', 'b160423cs'),
+('B160511CS', 'Malhar', 'Student', 'OBC', 'malhar@gmail.com', '9756153859', 'abcd'),
+('B160632CS', 'Kenil', 'Student', 'GEN', 'kenilshah081198@gmail.com', '9892506094', '1234'),
+('b160777cs', 'Sheldon', 'Student', 'GEN', 'smartestpersoninroom@gmail.com', '9696969696', 'b160777cs'),
+('b160854cs', 'Ram Prabhu', 'Student', 'SC', 'ram@nitc.ac.in', '9685999999', '1234'),  -- Fixed phone length
+('b160951cs', 'Misty', 'Student', 'SC', 'watermaster@hotmail.com', '4145424847', 'b160951cs'),
+('b160999cs', 'Chandler', 'Student', 'OBC', 'sarcasticlord@hotmail.com', '9494959694', 'b160999cs');
+UNLOCK TABLES;
+
+AUTHOR:
+-- Table structure for table book (Must be created first)
+DROP TABLE IF EXISTS book;
+CREATE TABLE book (
+    BookId int(10) NOT NULL AUTO_INCREMENT,
+    Title varchar(50) DEFAULT NULL,
+    Publisher varchar(50) DEFAULT NULL,
+    Year varchar(50) DEFAULT NULL,
+    Availability int(5) DEFAULT NULL,
+    PRIMARY KEY (BookId)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+
+-- Insert data into book table
+INSERT INTO book VALUES
+(1,'OS','PEARSON','2006',0),
+(2,'DBMS','TARGET67','2010',0),
+(3,'TOC','NITC','2018',4),
+(4,'TOC','NITC','2018',1),
+(5,'DAA','y','2014',0),
+(6,'DSA','X','2010',10),
+(7,'Discrete Structures','Pearson','2010',10),
+(8,'Database Processing','Prentice Hall','2013',12),
+(9,'Computer System Architecture','Prentice Hall','2015',4),
+(10,'C: How to Program','Prentice Hall','2009',3),
+(11,'Atomic and Nuclear Systems','Pearson India','2017',13),
+(12,'The PlayBook','Stinson','2010',12),
+(13,'General Theory of Relativity','Pearson India','2012',5),
+(14,'Heat and Thermodynamics','Pearson','2013',9),
+(15,'Machine Design','Pearson India','2012',5),
+(16,'Nuclear Physics','Pearson India','1998',7),
+(17,'Operating System','Pearson India','1990',7),
+(18,'Theory of Machines','Pearson','1992',12);
+
+-- Table structure for table author (Created after book)
+DROP TABLE IF EXISTS author;
+CREATE TABLE author (
+    BookId int(10) NOT NULL,
+    Author varchar(50) NOT NULL,
+    PRIMARY KEY (BookId, Author),
+    CONSTRAINT author_ibfk_1 FOREIGN KEY (BookId) REFERENCES book(BookId)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+MESSAGE:
+-- Ensure the user table exists before creating message table
+DROP TABLE IF EXISTS user;
+CREATE TABLE user (
+    RollNo VARCHAR(50) NOT NULL PRIMARY KEY,
+    Name VARCHAR(100),
+    Type VARCHAR(20),
+    Category VARCHAR(10),
+    Email VARCHAR(100),
+    Phone BIGINT,
+    Password VARCHAR(50)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Sample data for user (Ensure consistent RollNo cases)
+INSERT INTO user VALUES
+('b160111cs','Bharat','Student','GEN','bharat@gmail.com',123456,'abcd'),
+('B160158CS','MANU','Student','GEN','manu@gmail.com',8365917597,'manu'),
+('b160632cs','KENIL','Student','GEN','kenilshah081198@gmail.com',9892506094,'1234'),
+('b160511cs','MALHAR','Student','OBC','malhar@gmail.com',9756153859,'abcd');
+
+-- Create message table
+DROP TABLE IF EXISTS message;
+CREATE TABLE message (
+    M_Id INT(10) NOT NULL AUTO_INCREMENT,
+    RollNo VARCHAR(50) DEFAULT NULL,
+    Msg VARCHAR(255) DEFAULT NULL,
+    Date DATE DEFAULT NULL,
+    Time TIME DEFAULT NULL,
+    PRIMARY KEY (M_Id),
+    KEY RollNo (RollNo),
+    CONSTRAINT message_ibfk_1 FOREIGN KEY (RollNo) REFERENCES user (RollNo)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+
+-- Insert data into message table
+INSERT INTO message VALUES
+(1, 'b160111cs', 'Your request for BookId: 1 has been accepted', '2018-10-15', '23:47:40'),
+(2, 'B160158CS', 'Your request for BookId: 1 has been accepted', '2018-10-15', '23:47:50'),
+(3, 'B160158CS', 'Your request for BookId: 2 has been rejected', '2018-10-15', '23:47:58'),
+(4, 'b160632cs', 'Your request for BookId: 3 has been accepted', '2018-10-16', '16:54:29'),
+(5, 'b160511cs', 'Your request for BookId: 2 has been accepted', '2018-10-16', '16:54:58'),
+(6, 'b160511cs', 'Your request for BookId: 6 has been accepted', '2018-10-16', '21:56:11'),
+(7, 'B160158CS', 'Your request for renewal of BookId: 1 has been accepted', '2018-10-16', '22:43:24'),
+(8, 'b160511cs', 'Your request for return of BookId: 6 has been accepted', '2018-10-16', '22:44:24'),
+(9, 'B160158CS', 'Your request for renewal of BookId: 1 has been accepted', '2018-10-16', '23:05:12'),
+(10, 'b160003ch', 'Your request for issue of BookId: 9 has been accepted', '2018-10-25', '23:27:46'),
+(11, 'b160011ch', 'Your request for issue of BookId: 10 has been accepted', '2018-10-25', '23:27:49'),
+(12, 'b160001cs', 'Your request for issue of BookId: 11 has been accepted', '2018-10-25', '23:27:57'),
+(13, 'b160158cs', 'Your request for issue of BookId: 18 has been accepted', '2018-10-25', '23:30:49'),
+(14, 'b160003ch', 'Your request for issue of BookId: 15 has been rejected', '2018-10-26', '03:04:51');
+
+RECOMMENDATIONS:
+-- Ensure the user table exists before creating recommendations
+DROP TABLE IF EXISTS user;
+CREATE TABLE user (
+    RollNo VARCHAR(50) NOT NULL PRIMARY KEY,
+    Name VARCHAR(100),
+    Type VARCHAR(20),
+    Category VARCHAR(10),
+    Email VARCHAR(100),
+    Phone BIGINT,
+    Password VARCHAR(50)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Sample data for user (Ensure consistent RollNo cases)
+INSERT INTO user VALUES
+('b160001cs','Alice','Student','GEN','alice@example.com',1234567890,'pass1'),
+('B160158CS','Bob','Student','OBC','bob@example.com',9876543210,'pass2'),
+('b160999cs','Charlie','Student','GEN','charlie@example.com',1122334455,'pass3'),
+('b160777cs','David','Student','GEN','david@example.com',5566778899,'pass4');
+
+-- Create recommendations table
+DROP TABLE IF EXISTS recommendations;
+CREATE TABLE recommendations (
+    R_ID INT(10) NOT NULL AUTO_INCREMENT,
+    Book_Name VARCHAR(50) DEFAULT NULL,
+    Description VARCHAR(255) DEFAULT NULL,
+    RollNo VARCHAR(50) DEFAULT NULL,
+    PRIMARY KEY (R_ID),
+    KEY RollNo (RollNo),
+    CONSTRAINT recommendations_ibfk_1 FOREIGN KEY (RollNo) REFERENCES user (RollNo)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+-- Insert data into recommendations table
+INSERT INTO recommendations VALUES
+(2, 'Book1', 'Descp1', 'B160158CS'),
+(3, 'Book2', 'Descp2', 'B160158CS'),
+(5, 'Operating System', 'An OS manages computer hardware and software resources.', 'b160001cs'),
+(7, 'Networks', 'A computer network allows nodes to share resources and exchange data.', 'b160999cs'),
+(8, 'String Theory', 'String theory describes fundamental particles as vibrating strings.', 'b160777cs'),
+(9, 'The Theory of Everything', 'A book about fundamental physics and unification theories.', 'b160777cs');
+
+RECORD:
+-- Ensure the user and book tables exist before creating record
+DROP TABLE IF EXISTS user;
+CREATE TABLE user (
+    RollNo VARCHAR(50) NOT NULL PRIMARY KEY,
+    Name VARCHAR(100),
+    Type VARCHAR(20),
+    Category VARCHAR(10),
+    Email VARCHAR(100),
+    Phone BIGINT,
+    Password VARCHAR(50)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Sample data for user (Ensure consistent RollNo cases)
+INSERT INTO user VALUES
+('b160001cs','Alice','Student','GEN','alice@example.com',1234567890,'pass1'),
+('B160158CS','Bob','Student','OBC','bob@example.com',9876543210,'pass2'),
+('b160511cs','Charlie','Student','GEN','charlie@example.com',1122334455,'pass3'),
+('B160632CS','David','Student','GEN','david@example.com',5566778899,'pass4'),
+('b160854cs','Eve','Student','GEN','eve@example.com',6677889900,'pass5');
+
+-- Create book table to satisfy foreign key constraints
+DROP TABLE IF EXISTS book;
+CREATE TABLE book (
+    BookId INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    BookName VARCHAR(100) NOT NULL,
+    Author VARCHAR(100) NOT NULL,
+    Publisher VARCHAR(100),
+    Year INT(4)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Sample book data
+INSERT INTO book VALUES
+(1, 'Introduction to Algorithms', 'Cormen', 'MIT Press', 2009),
+(2, 'Operating Systems', 'Silberschatz', 'Wiley', 2018),
+(3, 'Database Systems', 'Navathe', 'Pearson', 2017),
+(6, 'Computer Networks', 'Tanenbaum', 'Prentice Hall', 2010),
+(9, 'Artificial Intelligence', 'Russell', 'Pearson', 2020),
+(10, 'Machine Learning', 'Goodfellow', 'MIT Press', 2016),
+(11, 'Deep Learning', 'Bengio', 'MIT Press', 2017),
+(17, 'Data Science Handbook', 'Grus', 'O’Reilly', 2015);
+
+-- Create record table
+DROP TABLE IF EXISTS record;
+CREATE TABLE record (
+    RollNo VARCHAR(50) NOT NULL,
+    BookId INT(10) NOT NULL,
+    Date_of_Issue DATE DEFAULT NULL,
+    Due_Date DATE DEFAULT NULL,
+    Date_of_Return DATE DEFAULT NULL,
+    Dues INT(10) DEFAULT 0 CHECK (Dues >= 0),
+    Renewals_left INT(10) DEFAULT 1,
+    Time TIME DEFAULT NULL,
+    PRIMARY KEY (RollNo, BookId),
+    KEY BookId (BookId),
+    CONSTRAINT record_ibfk_1 FOREIGN KEY (RollNo) REFERENCES user (RollNo),
+    CONSTRAINT record_ibfk_2 FOREIGN KEY (BookId) REFERENCES book (BookId)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Insert data into record table
+INSERT INTO record VALUES
+('b160001cs', 3, NULL, NULL, NULL, NULL, NULL, '13:18:12'),
+('b160001cs', 9, '2018-10-25', '2018-12-24', NULL, NULL, 1, '13:14:20'),
+('b160001cs', 11, '2018-10-25', '2018-12-24', NULL, NULL, 1, '13:14:20'),
+('b160003ch', 9, '2018-10-25', '2018-12-24', NULL, NULL, 1, '13:14:20'),
+('b160011ch', 10, '2018-10-25', '2018-12-24', NULL, NULL, 1, '13:14:20'),
+('b160011ch', 17, '2018-10-25', '2018-12-24', NULL, NULL, 1, '13:14:20'),
+('b160111cs', 1, '2018-10-15', '2018-12-14', NULL, NULL, 1, '13:14:20'),
+('B160158CS', 1, '2018-10-15', '2020-04-12', NULL, NULL, 0, '13:14:20'),
+('B160158CS', 2, '2018-10-16', '2018-12-15', NULL, NULL, 1, '13:14:20'),
+('b160158cs', 9, '2018-10-25', '2018-12-24', NULL, NULL, 1, '13:14:20'),
+('b160158cs', 18, '2018-10-25', '2018-12-24', NULL, NULL, 1, '13:14:20'),
+('b160511cs', 2, '2018-10-16', '2018-12-15', '2018-10-16', 60, 1, '13:14:20'),
+('b160511cs', 6, '2018-10-16', '2018-12-15', '2018-10-16', 60, 1, '13:14:20'),
+('b160511cs', 10, '2018-10-25', '2018-12-24', NULL, NULL, 1, '13:14:20'),
+('b160511cs', 11, '2018-10-25', '2018-12-24', NULL, NULL, 1, '13:14:20'),
+('b160511cs', 13, '2018-10-25', '2018-12-24', NULL, NULL, 1, '13:14:20'),
+('B160632CS', 15, '2018-10-25', '2018-12-24', NULL, NULL, 1, '13:14:20'),
+('B160854CS', 6, '2018-10-16', '2019-04-14', NULL, NULL, 1, '13:14:20');
+
+renew&return:
+-- Create renew table
+DROP TABLE IF EXISTS renew;
+CREATE TABLE renew (
+    RollNo VARCHAR(50) NOT NULL,
+    BookId INT(10) NOT NULL,
+    PRIMARY KEY (RollNo, BookId),
+    KEY BookId (BookId),
+    CONSTRAINT renew_ibfk_1 FOREIGN KEY (RollNo) REFERENCES user (RollNo),
+    CONSTRAINT renew_ibfk_2 FOREIGN KEY (BookId) REFERENCES book (BookId)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Insert data into renew table
+LOCK TABLES renew WRITE;
+INSERT INTO renew (RollNo, BookId) VALUES
+('b160158cs', 2),
+('b160158cs', 9),
+('b160001cs', 11),
+('b160511cs', 11),
+('b160158cs', 18);
+UNLOCK TABLES;
+
+-- Create return table (renamed to returns to avoid SQL keyword conflict)
+DROP TABLE IF EXISTS returns;
+CREATE TABLE returns (
+    RollNo VARCHAR(50) NOT NULL,
+    BookId INT(10) NOT NULL,
+    PRIMARY KEY (RollNo, BookId),
+    KEY BookId (BookId),
+    CONSTRAINT returns_ibfk_1 FOREIGN KEY (RollNo) REFERENCES user (RollNo),
+    CONSTRAINT returns_ibfk_2 FOREIGN KEY (BookId) REFERENCES book (BookId)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Insert data into returns table
+LOCK TABLES returns WRITE;
+INSERT INTO returns (RollNo, BookId) VALUES
+('b160158cs', 1),
+('b160003ch', 9),
+('b160511cs', 10),
+('b160511cs', 13),
+('b160158cs', 18);
+UNLOCK TABLES;
