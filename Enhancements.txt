@@ -1,0 +1,5 @@
+Enhancements:
+
+Add auto-complete suggestions.
+Implement wildcard searching (text*, *word).
+Store file locations where words appear
