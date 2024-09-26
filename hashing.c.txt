@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define TABLE_SIZE 1000
+
+typedef struct HashNode {
+    char word[50];
+    int count;
+    struct HashNode *next;
+} HashNode;
+
+HashNode* hashTable[TABLE_SIZE];
+
+unsigned int hashFunction(const char *word) {
+    unsigned int hash = 0;
+    while (*word)
+        hash = (hash * 31 + *word++) % TABLE_SIZE;
+    return hash;
+}
+
+void insertHash(const char *word) {
+    unsigned int index = hashFunction(word);
+    HashNode *node = hashTable[index];
+
+    while (node) {
+        if (strcmp(node->word, word) == 0) {
+            node->count++;
+            return;
+        }
+        node = node->next;
+    }
+
+    HashNode *newNode = (HashNode*)malloc(sizeof(HashNode));
+    strcpy(newNode->word, word);
+    newNode->count = 1;
+    newNode->next = hashTable[index];
+    hashTable[index] = newNode;
+}
+
+int getWordCount(const char *word) {
+    unsigned int index = hashFunction(word);
+    HashNode *node = hashTable[index];
+
+    while (node) {
+        if (strcmp(node->word, word) == 0)
+            return node->count;
+        node = node->next;
+    }
+    return 0;
+}
