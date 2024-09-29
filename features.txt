@@ -1,0 +1,6 @@
+
+ Features
+Add multiple text files for indexing.
+Search for words with auto-suggestions.
+Display occurrences & frequency of words.
+Optimize search time using Trie + Hashing.
