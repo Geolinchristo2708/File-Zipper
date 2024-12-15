@@ -7,3 +7,5 @@ List of Figures
 1.5 K-Nearest Neighbors (KNN) Decision Surface
 1.6 Decision Tree Architecture for Glass Classification
 1.7 Naive Bayes Classification Regions
+
+
