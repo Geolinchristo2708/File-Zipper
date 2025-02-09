@@ -1,0 +1,16 @@
+The Round Robin algorithm is employed to ensure that every student query receives
+equal processing time. Here's an outline of the algorithm's implementation in our
+system:
+Queries are stored in a queue data structure.
+Each query is assigned a time quantum for processing.
+The system processes queries in a cyclic manner, allocating a time quantum to
+each query in a round-robin fashion.
+If a query is not resolved within its allocated time quantum, it is moved to the end of
+the queue to be processed in the next cycle.
+Data Structures and Logic:
+The system maintains a queue to hold incoming student queries. When a query
+arrives, it is added to the end of the queue.
+ The system's processor iterates through the queue, allocating time to
+ each query
+ Once a query's time quantum expires, it is moved to the end of the queue
+ for further processing.
